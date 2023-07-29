@@ -10,7 +10,7 @@ const usersRouter = require('./routes/users');
 const app = express();
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-const mongoDB = "mongodb+srv://tianjianli314:3.1415TjLi@cluster0.xuybmck.mongodb.net/fantasy_football_website?retryWrites=true&w=majority";
+const mongoDB = process.env.MONGO_STRING;
 
 main().catch((err) => console.log(err));
 async function main() {
