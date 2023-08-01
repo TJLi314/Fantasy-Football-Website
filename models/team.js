@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 
 const TeamSchema = new Schema({
     name: {type: String, required: true},
-    city: {type: String, required: true},
     coaches: [{type: String}],
 });
 

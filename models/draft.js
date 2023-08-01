@@ -2,8 +2,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const DraftSchema = new Schema({
-    teams: {type: int, required: true},
-    order: {type: int, required: true},
+    title: {type: String, required: true},
+    teams: {type: Number, required: true},
+    order: {type: Number, required: true},
     picks: [{type: Schema.Types.ObjectId, ref: "Player"}],
 });
 
