@@ -28,7 +28,7 @@ router.get("/team/create", team_controller.team_create_get);      // create new 
 router.post("/team/create", team_controller.team_create_post);
 
 router.get("/team/:id/delete", team_controller.team_delete_get);  // delete team
-router.post("/team/:id/delete", player_controller.team_delete_post);
+router.post("/team/:id/delete", team_controller.team_delete_post);
 
 router.get("/team/:id/update", team_controller.team_update_get);  // update team
 router.post("/team/:id/update", team_controller.team_update_post);
@@ -61,7 +61,7 @@ router.post("/draft/:id/delete", draft_controller.draft_delete_post);
 router.get("/draft/:id/update", draft_controller.draft_update_get);  // update draft
 router.post("/draft/:id/update", draft_controller.draft_update_post);
 
-router.get("/draft/:id", draft_controller.draft_detail);     // read one or all draft
+router.get("/draft/:id", draft_controller.draft_detail);     // read one or all drafts
 router.get("/drafts", draft_controller.draft_list);
 
 module.exports = router;
