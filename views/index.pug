@@ -2,4 +2,14 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p Welcome to #[em Fantasy Football Draft Central], the premier website for fantasy draft day preparations!
+
+  h1 Dynamic content 
+
+  p The website has the following record counts: 
+  
+  ul 
+    li #[strong Players:] !{player_count}
+    li #[strong Teams:] !{team_count}
+    li #[strong Positions:] !{position_count}
+    li #[strong Drafts:] !{draft_count}

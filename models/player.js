@@ -9,7 +9,7 @@ const PlayerSchema = new Schema({
 });
 
 PlayerSchema.virtual("url").get(function () {
-    return `/players/${this._id}`;
+    return `/home/player/${this._id}`;
 });
 
 module.exports = mongoose.model("Player", PlayerSchema);

@@ -1,0 +1,10 @@
+extends layout
+
+block content 
+    h1= title 
+
+    ul 
+        each player in player_list 
+            li 
+                a(href=player.url) #{player.name}   
+                |, #{player.team.name} (#{player.position.name})
