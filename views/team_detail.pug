@@ -1,0 +1,14 @@
+extends layout 
+
+block content 
+    h1= title 
+
+    h4 Coaches
+    ul
+        each coach in team.coaches
+            li= coach
+    
+    h4 Players 
+    ul
+        each player in players 
+            li #{player.name}

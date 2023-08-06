@@ -6,7 +6,7 @@ const PositionSchema = new Schema({
 });
 
 PositionSchema.virtual("url").get(function() {
-    return `/positions/${this._id}`;
+    return `/home/position/${this._id}`;
 });
 
 module.exports = mongoose.model("Position", PositionSchema);

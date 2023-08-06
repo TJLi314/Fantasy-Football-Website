@@ -9,7 +9,7 @@ const DraftSchema = new Schema({
 });
 
 DraftSchema.virtual("url").get(function() {
-    return `/drafts/${this._id}`;
+    return `/home/draft/${this._id}`;
 });
 
 module.exports = mongoose.model("Draft", DraftSchema);

@@ -1,0 +1,10 @@
+extends layout 
+
+block content 
+    h1= title 
+    
+    h4 Players 
+    ul
+        each player in players 
+            li 
+                a(href=player.url) #{player.name}

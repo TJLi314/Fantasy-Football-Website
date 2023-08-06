@@ -7,7 +7,7 @@ const TeamSchema = new Schema({
 });
 
 TeamSchema.virtual("url").get(function () {
-    return `/teams/${this._id}`;
+    return `/home/team/${this._id}`;
 });
 
 module.exports = mongoose.model("Team", TeamSchema);

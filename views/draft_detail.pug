@@ -1,0 +1,11 @@
+extends layout
+
+block content 
+    h1= title 
+    p #{draft.teams} teams, pick #{draft.order}
+
+    
+        each player, index in draft.picks 
+            p Pick #{(index + 1)}: 
+                a(href=player.url) #{player.name}   
+                
