@@ -17,12 +17,27 @@ exports.position_detail = asyncHandler(async (req, res, next) => {
 });
 
 exports.position_create_get = asyncHandler(async (req, res, next) => {
-    res.send("Not implemented");
+    res.render("position_form", {title: "Create Position"});
 });
 
-exports.position_create_post = asyncHandler(async (req, res, next) => {
-    res.send("Not implemented");
-});
+exports.position_create_post = [
+    body("name", "Name must not be empty").trim().isLength({min: 1}).escape(),
+    
+    asyncHandler(async (req, res, next) => {
+        const errors = validationResult(req);
+
+        const position = new Position({
+            name: req.body.name,
+        });
+
+        if (!errors.isEmpty()) {
+            res.render("position_form", {title: "Create Position", errors: errors.array()});
+        } else {
+            await position.save();
+            res.redirect(position.url);
+        }
+    })
+]
 
 exports.position_delete_get = asyncHandler(async (req, res, next) => {
     res.send("Not implemented");

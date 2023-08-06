@@ -1,0 +1,36 @@
+extends layout
+
+block content 
+    h1= title 
+
+    form(method='POST' action='')
+        div.form-group
+            label(for='name') Name: 
+            input#name.form-control(type='text' placeholder='Name of player' name='name' value=(undefined===player ? '' : player.name))
+        div.form-group
+            label(for='team') Team: 
+            select#team.form-control(type='select', placeholder='Select team' name='team', required='true')
+                - teams.sort(function(a, b) {let textA = a.name; let textB = b.name; return (textA < textB) ? -1: (textA > textB) ? 1 : 0});
+                for team in teams 
+                    if player   
+                        option(value=team._id selected=(team._id.toString()===player.team._id.toString() ? 'selected' : false) ) #{team.name}
+                    else 
+                        option(value=team._id) #{team.name}
+        div.form-group
+            label(for='position') Position: 
+            select#team.form-control(type='select', placeholder='Select position' name='position', required='true')
+                - positions.sort(function(a, b) {let textA = a.name; let textB = b.name; return (textA < textB) ? -1: (textA > textB) ? 1 : 0});
+                for position in positions 
+                    if player  
+                        option(value=position._id selected=(position._id.toString()===player.position._id.toString() ? 'selected' : false)) #{position.name}
+                    else 
+                        option(value=position._id) #{position.name}
+        div.form-group
+            label(for='description') Description:
+            textarea#description.form-control(type='textarea', placeholder='Description', name='description', required='true') #{undefined===player ? '' : player.description}
+        button.btn.btn-primary(type='submit') Submit 
+
+    if errors 
+        ul 
+            for error in errors 
+                li!= error.msg

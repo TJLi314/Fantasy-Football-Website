@@ -1,0 +1,155 @@
+extends layout
+
+block content 
+    h1= title 
+
+    form(method='POST' action='')
+        div.form-group
+            label(for='title') Title: 
+            input#title.form-control(type='text' placeholder='Title of draft' name='title' required='true' value=(undefined===draft ? '' : draft.title))
+        div.form-group
+            label(for='teams') Teams: 
+            select#teams.form-control(type='select', placeholder='Select number of teams' name='teams', required='true')
+                for val in [8, 10, 12, 14, 16, 18, 20] 
+                    if draft    
+                        option(value=val selected=(val===draft.teams ? 'selected': false))
+                    else
+                        option(value=val) 
+                            p= val
+        div.form-group
+            label(for='order') Pick Number: 
+            input#order.form-control(type='text' placeholder='pick number' name='order' required='true' value=(undefined===draft ? '' : draft.order))
+        div.form-group
+            label(for='picks') Pick 1:
+            select#picks.form-control(type='select', placeholder='Select player' name='pick1' required='true')
+                for player in players
+                    if draft 
+                        option(value=player._id selected=(player._id.toString()===draft.picks[0].toString() ? 'selected' : false)) #{player.name}
+                    else
+                        option(value=player._id) #{player.name}
+        div.form-group
+            label(for='picks') Pick 2:
+            select#picks.form-control(type='select', placeholder='Select player' name='pick2' required='true')
+                for player in players
+                    if draft 
+                        option(value=player._id selected=(player._id.toString()===draft.picks[1].toString() ? 'selected' : false)) #{player.name}
+                    else
+                        option(value=player._id) #{player.name}
+        div.form-group
+            label(for='picks') Pick 3:
+            select#picks.form-control(type='select', placeholder='Select player' name='pick3' required='true')
+                for player in players
+                    if draft 
+                        option(value=player._id selected=(player._id.toString()===draft.picks[2].toString() ? 'selected' : false)) #{player.name}
+                    else
+                        option(value=player._id) #{player.name}
+        div.form-group
+            label(for='picks') Pick 4:
+            select#picks.form-control(type='select', placeholder='Select player' name='pick4' required='true')
+                for player in players
+                    if draft 
+                        option(value=player._id selected=(player._id.toString()===draft.picks[3].toString() ? 'selected' : false)) #{player.name}
+                    else
+                        option(value=player._id) #{player.name}
+        div.form-group
+            label(for='picks') Pick 5:
+            select#picks.form-control(type='select', placeholder='Select player' name='pick5' required='true')
+                for player in players
+                    if draft 
+                        option(value=player._id selected=(player._id.toString()===draft.picks[4].toString() ? 'selected' : false)) #{player.name}
+                    else
+                        option(value=player._id) #{player.name}
+        div.form-group
+            label(for='picks') Pick 6:
+            select#picks.form-control(type='select', placeholder='Select player' name='pick6' required='true')
+                for player in players
+                    if draft 
+                        option(value=player._id selected=(player._id.toString()===draft.picks[5].toString() ? 'selected' : false)) #{player.name}
+                    else
+                        option(value=player._id) #{player.name}
+        div.form-group
+            label(for='picks') Pick 7:
+            select#picks.form-control(type='select', placeholder='Select player' name='pick7' required='true')
+                for player in players
+                    if draft 
+                        option(value=player._id selected=(player._id.toString()===draft.picks[6].toString() ? 'selected' : false)) #{player.name}
+                    else
+                        option(value=player._id) #{player.name}
+        div.form-group
+            label(for='picks') Pick 8:
+            select#picks.form-control(type='select', placeholder='Select player' name='pick8' required='true')
+                for player in players
+                    if draft 
+                        option(value=player._id selected=(player._id.toString()===draft.picks[7].toString() ? 'selected' : false)) #{player.name}
+                    else
+                        option(value=player._id) #{player.name}
+        div.form-group
+            label(for='picks') Pick 9:
+            select#picks.form-control(type='select', placeholder='Select player' name='pick9' required='true')
+                for player in players
+                    if draft 
+                        option(value=player._id selected=(player._id.toString()===draft.picks[8].toString() ? 'selected' : false)) #{player.name}
+                    else
+                        option(value=player._id) #{player.name}
+        div.form-group
+            label(for='picks') Pick 10:
+            select#picks.form-control(type='select', placeholder='Select player' name='pick10' required='true')
+                for player in players
+                    if draft 
+                        option(value=player._id selected=(player._id.toString()===draft.picks[9].toString() ? 'selected' : false)) #{player.name}
+                    else
+                        option(value=player._id) #{player.name}
+        div.form-group
+            label(for='picks') Pick 11:
+            select#picks.form-control(type='select', placeholder='Select player' name='pick11' required='true')
+                for player in players
+                    if draft 
+                        option(value=player._id selected=(player._id.toString()===draft.picks[10].toString() ? 'selected' : false)) #{player.name}
+                    else
+                        option(value=player._id) #{player.name}
+        div.form-group
+            label(for='picks') Pick 12:
+            select#picks.form-control(type='select', placeholder='Select player' name='pick12' required='true')
+                for player in players
+                    if draft 
+                        option(value=player._id selected=(player._id.toString()===draft.picks[11].toString() ? 'selected' : false)) #{player.name}
+                    else
+                        option(value=player._id) #{player.name}
+        div.form-group
+            label(for='picks') Pick 13:
+            select#picks.form-control(type='select', placeholder='Select player' name='pick13' required='true')
+                for player in players
+                    if draft 
+                        option(value=player._id selected=(player._id.toString()===draft.picks[12].toString() ? 'selected' : false)) #{player.name}
+                    else
+                        option(value=player._id) #{player.name}
+        div.form-group
+            label(for='picks') Pick 14:
+            select#picks.form-control(type='select', placeholder='Select player' name='pick14' required='true')
+                for player in players
+                    if draft 
+                        option(value=player._id selected=(player._id.toString()===draft.picks[13].toString() ? 'selected' : false)) #{player.name}
+                    else
+                        option(value=player._id) #{player.name}
+        div.form-group
+            label(for='picks') Pick 15:
+            select#picks.form-control(type='select', placeholder='Select player' name='pick15' required='true')
+                for player in players
+                    if draft 
+                        option(value=player._id selected=(player._id.toString()===draft.picks[14].toString() ? 'selected' : false)) #{player.name}
+                    else
+                        option(value=player._id) #{player.name}
+        div.form-group
+            label(for='picks') Pick 16:
+            select#picks.form-control(type='select', placeholder='Select player' name='pick16' required='true')
+                for player in players
+                    if draft 
+                        option(value=player._id selected=(player._id.toString()===draft.picks[15].toString() ? 'selected' : false)) #{player.name}
+                    else
+                        option(value=player._id) #{player.name}
+        button.btn.btn-primary(type='submit') Submit
+
+    if errors 
+        ul 
+            for error in errors 
+                li!= error.msg

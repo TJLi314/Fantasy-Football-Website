@@ -1,0 +1,18 @@
+extends layout
+
+block content 
+    h1= title 
+
+    form(method='POST' action='')
+        div.form-group
+            label(for='name') Name: 
+            input#name.form-control(type='text' placeholder='Name of team' name='name' value=(undefined===team ? '' : team.name))
+        div.form-group
+            label(for='coaches') Coaches [Separate by commas]:
+            textarea#description.form-control(type='textarea', placeholder='Coaches', name='coaches', required='true') #{undefined===team ? '' : player.coaches}
+        button.btn.btn-primary(type='submit') Submit 
+
+    if errors 
+        ul 
+            for error in errors 
+                li!= error.msg

@@ -30,20 +30,45 @@ exports.player_list = asyncHandler(async (req, res, next) => {
 
 exports.player_detail = asyncHandler(async (req, res, next) => {
     const player = await Player.findById(req.params.id).populate("team").populate("position").exec();
-
     res.render("player_detail", {title: player.name, player: player});
 });
 
 exports.player_create_get = asyncHandler(async (req, res, next) => {
-    res.send("Not implemented");
+    const [allTeams, allPositions] = await Promise.all([
+        Team.find().exec(), Position.find().exec()
+    ]);
+    res.render("player_form", {title: "Create Player", teams: allTeams, positions: allPositions});
 });
 
-exports.player_create_post = asyncHandler(async (req, res, next) => {
-    res.send("Not implemented");
-});
+exports.player_create_post = [
+    body("name", "Name must not be empty").trim().isLength({min: 1}).escape(),
+    body("team", "Team must not be empty").trim().isLength({min: 1}).escape(),
+    body("description", "Description must not be empty").trim().isLength({min: 1}).escape(),
+    body("position", "Position must not be empty").trim().isLength({min: 1}).escape(),
+
+    asyncHandler(async (req, res, next) => {
+        const errors = validationResult(req);
+
+        const player = new Player({
+            name: req.body.name, team: req.body.team, position: req.body.position, description: req.body.description,
+        });
+
+        if (!errors.isEmpty()) {
+            const [allTeams, allPositions] = await Promise.all([
+                Team.find().exec(), Position.find().exec()
+            ]);
+
+            res.render("player_form", {title: "Create Player", teams: allTeams, positions: allPositions, errors: errors.array()});
+        } else {
+            await player.save();
+            res.redirect(player.url);
+        }
+    }),
+];
 
 exports.player_delete_get = asyncHandler(async (req, res, next) => {
-    res.send("Not implemented");
+    const player = await Book.findById(req.params.id).exec();
+    res.render("player_delete", {title: "Delete Player", player: player});
 });
 
 exports.player_delete_post = asyncHandler(async (req, res, next) => {

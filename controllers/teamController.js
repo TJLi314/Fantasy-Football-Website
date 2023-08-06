@@ -17,12 +17,29 @@ exports.team_detail = asyncHandler(async (req, res, next) => {
 });
 
 exports.team_create_get = asyncHandler(async (req, res, next) => {
-    res.send("Not implemented");
+    res.render("team_form", {title: "Create Team"});
 });
 
-exports.team_create_post = asyncHandler(async (req, res, next) => {
-    res.send("Not implemented");
-});
+exports.team_create_post = [
+    body("name", "Name must not be empty").trim().isLength({min: 1}).escape(),
+    body("coaches", "coaches must not be empty").trim().isLength({min: 1}).escape(),
+
+    asyncHandler(async (req, res, next) => {
+        const errors = validationResult(req);
+
+        coaches = req.body.coaches.split(', ');
+        const team = new Team({
+            name: req.body.name, coaches: coaches,
+        });
+
+        if (!errors.isEmpty()) {
+            res.render("team_form", {title: "Create Team", errors: errors.array()});
+        } else {
+            await team.save();
+            res.redirect(team.url);
+        }
+    }),
+];
 
 exports.team_delete_get = asyncHandler(async (req, res, next) => {
     res.send("Not implemented");
