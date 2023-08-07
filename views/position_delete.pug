@@ -1,0 +1,26 @@
+extends layout 
+
+block content 
+    h1 #{title}: #{position._id} (id)
+
+    p #[strong Position:]
+        a(href=position.url)    #{position.name}
+    
+    if players.length 
+        p #[strong Delete the following players before attempting to delete this position]
+
+        div(style='margin-left:20px;margin-top:20px')
+        h4 Players 
+        ul
+            each player in players 
+                li #{player.name}
+    
+    else 
+        p Do you really want to delete this position?
+
+        form(method='POST' action='')
+            div.form-group
+                input#position.id.form-control(type='hidden', name='positionid', required='true', value=position._id)
+
+            button.btn.btn-primary(type='submit') Delete
+            

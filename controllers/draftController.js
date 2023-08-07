@@ -55,11 +55,13 @@ exports.draft_create_post = [
 ];
 
 exports.draft_delete_get = asyncHandler(async (req, res, next) => {
-    res.send("Not implemented");
+    const draft = await Draft.findById(req.params.id);
+    res.render("draft_delete", {title: "Delete Draft", draft: draft});
 });
 
 exports.draft_delete_post = asyncHandler(async (req, res, next) => {
-    res.send("Not implemented");
+    await Draft.findByIdAndRemove(req.body.draftid);
+    res.redirect("/home/drafts");
 });
 
 exports.draft_update_get = asyncHandler(async (req, res, next) => {

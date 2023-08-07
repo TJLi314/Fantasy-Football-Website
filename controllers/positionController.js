@@ -37,14 +37,18 @@ exports.position_create_post = [
             res.redirect(position.url);
         }
     })
-]
+];
 
 exports.position_delete_get = asyncHandler(async (req, res, next) => {
-    res.send("Not implemented");
+    const [position, players] = await Promise.all([
+        Position.findById(req.params.id).exec(), Player.find({position: req.params.id}).exec(),
+    ]);
+    res.render("position_delete", {title: "Delete Position", position: position, players: players});
 });
 
 exports.position_delete_post = asyncHandler(async (req, res, next) => {
-    res.send("Not implemented");
+    await Position.findByIdAndRemove(req.body.positionid);
+    res.redirect('/home/positions');
 });
 
 exports.position_update_get = asyncHandler(async (req, res, next) => {

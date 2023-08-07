@@ -67,12 +67,13 @@ exports.player_create_post = [
 ];
 
 exports.player_delete_get = asyncHandler(async (req, res, next) => {
-    const player = await Book.findById(req.params.id).exec();
+    const player = await Player.findById(req.params.id).exec();
     res.render("player_delete", {title: "Delete Player", player: player});
 });
 
 exports.player_delete_post = asyncHandler(async (req, res, next) => {
-    res.send("Not implemented");
+    await Player.findByIdAndRemove(req.body.playerid);
+    res.redirect("/home/players");
 });
 
 exports.player_update_get = asyncHandler(async (req, res, next) => {

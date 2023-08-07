@@ -42,11 +42,15 @@ exports.team_create_post = [
 ];
 
 exports.team_delete_get = asyncHandler(async (req, res, next) => {
-    res.send("Not implemented");
+    const [team, players] = await Promise.all([
+        Team.findById(req.params.id).exec(), Player.find({team: req.params.id}).exec(),
+    ]);
+    res.render("team_delete", {title: "Delete team", team: team, players: players});
 });
 
 exports.team_delete_post = asyncHandler(async (req, res, next) => {
-    res.send("Not implemented");
+    await Team.findByIdAndRemove(req.body.teamid);
+    res.redirect("/home/teams");
 });
 
 exports.team_update_get = asyncHandler(async (req, res, next) => {

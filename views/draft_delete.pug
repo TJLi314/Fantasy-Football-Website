@@ -1,0 +1,16 @@
+extends layout 
+
+block content 
+    h1 #{title}: #{draft._id} (id)
+
+    p #[strong Draft:]
+        a(href=draft.url)    #{draft.name}
+
+    p Do you really want to delete this draft?
+
+    form(method='POST' action='')
+        div.form-group
+            input#draft.id.form-control(type='hidden', name='draftid', required='true', value=draft._id)
+
+        button.btn.btn-primary(type='submit') Delete
+            
