@@ -77,9 +77,34 @@ exports.player_delete_post = asyncHandler(async (req, res, next) => {
 });
 
 exports.player_update_get = asyncHandler(async (req, res, next) => {
-    res.send("Not implemented");
+    const [player, allTeams, allPositions] = await Promise.all([
+        Player.findById(req.params.id).exec(), Team.find().exec(), Position.find().exec(),
+    ]);
+    res.render("player_form", {title: "Update Player", player: player, positions: allPositions, teams: allTeams});
 });
 
-exports.player_update_post = asyncHandler(async (req, res, next) => {
-    res.send("Not implemented");
-});
+exports.player_update_post = [
+    body("name", "Name must not be empty").trim().isLength({min: 1}).escape(),
+    body("team", "Team must not be empty").trim().isLength({min: 1}).escape(),
+    body("description", "Description must not be empty").trim().isLength({min: 1}).escape(),
+    body("position", "Position must not be empty").trim().isLength({min: 1}).escape(),
+
+    asyncHandler(async (req, res, next) => {
+        const errors = validationResult(req);
+
+        const player = new Player({
+            name: req.body.name, team: req.body.team, position: req.body.position, description: req.body.description, _id: req.params.id
+        });
+
+        if (!errors.isEmpty()) {
+            const [allTeams, allPositions] = await Promise.all([
+                Team.find().exec(), Position.find().exec()
+            ]);
+
+            res.render("player_form", {title: "Update Player", teams: allTeams, positions: allPositions, errors: errors.array(), player: player});
+        } else {
+            const theplayer = await Player.findByIdAndUpdate(req.params.id, player, {});
+            res.redirect(theplayer.url);
+        }
+    }),
+];

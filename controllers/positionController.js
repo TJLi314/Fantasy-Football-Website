@@ -52,9 +52,25 @@ exports.position_delete_post = asyncHandler(async (req, res, next) => {
 });
 
 exports.position_update_get = asyncHandler(async (req, res, next) => {
-    res.send("Not implemented");
+    const position = await Position.findById(req.params.id).exec();
+    res.render("position_form", {title: "Update Position", position: position});
 });
 
-exports.position_update_post = asyncHandler(async (req, res, next) => {
-    res.send("Not implemented");
-});
+exports.position_update_post = [
+    body("name", "Name must not be empty").trim().isLength({min: 1}).escape(),
+    
+    asyncHandler(async (req, res, next) => {
+        const errors = validationResult(req);
+
+        const position = new Position({
+            name: req.body.name, _id: req.params.id
+        });
+
+        if (!errors.isEmpty()) {
+            res.render("position_form", {title: "Update Position", errors: errors.array(), position: position});
+        } else {
+            await Position.findByIdAndUpdate(req.params.id, position)
+            res.redirect(position.url);
+        }
+    })
+];

@@ -49,8 +49,15 @@ exports.draft_create_post = [
         const draft = new Draft({
             title: req.body.title, teams: req.body.teams, order: req.body.order, picks: players,
         });
-        await draft.save();
-        res.redirect(draft.url);
+
+        if (!errors.isEmpty()) {
+            const players = await Player.find().exec();
+            res.render("team_form", {title: "Create Team", errors: errors.array(), players: players});
+        } else {
+            await draft.save();
+            res.redirect(draft.url);
+        }
+        
     }),
 ];
 
@@ -65,9 +72,50 @@ exports.draft_delete_post = asyncHandler(async (req, res, next) => {
 });
 
 exports.draft_update_get = asyncHandler(async (req, res, next) => {
-    res.send("Not implemented");
+    const [draft, players] = await Promise.all([
+        Draft.findById(req.params.id).exec(), Player.find().exec(),
+    ]);
+    res.render("draft_form", {title: "Update Draft", draft: draft, players: players});
 });
 
-exports.draft_update_post = asyncHandler(async (req, res, next) => {
-    res.send("Not implemented");
-});
+exports.draft_update_post = [
+    body("title", "Title must not be empty").trim().isLength({min: 1}).escape(),
+    body("teams", "Teams must not be empty").trim().isLength({min: 1}).escape(),
+    body("order", "Pick number must not be empty").trim().isLength({min: 1}).escape(),
+
+    asyncHandler(async (req, res, next) => {
+        const errors = validationResult(req);
+
+        var players = [];
+        players.push(req.body.pick1);
+        players.push(req.body.pick2);
+        players.push(req.body.pick3);
+        players.push(req.body.pick4);
+        players.push(req.body.pick5);
+        players.push(req.body.pick6);
+        players.push(req.body.pick7);
+        players.push(req.body.pick8);
+        players.push(req.body.pick9);
+        players.push(req.body.pick10);
+        players.push(req.body.pick11);
+        players.push(req.body.pick12);
+        players.push(req.body.pick13);
+        players.push(req.body.pick14);
+        players.push(req.body.pick15);
+        players.push(req.body.pick16);
+
+
+        const draft = new Draft({
+            title: req.body.title, teams: req.body.teams, order: req.body.order, picks: players, _id: req.params.id,
+        });
+
+        if (!errors.isEmpty()) {
+            const players = await Player.find().exec();
+            res.render("team_form", {title: "Update Team", errors: errors.array(), players: players});
+        } else {
+            await Draft.findByIdAndUpdate(req.params.id, draft);
+            res.redirect(draft.url);
+        }
+        
+    }),
+];
